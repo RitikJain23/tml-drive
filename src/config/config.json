@@ -1,0 +1,8 @@
+{
+    "accessKey" :"AKIAUONXKV2US5QHTYNO",
+    "secretKey" :"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",
+    "endPoint" :"https://s3.amazonaws.com",
+    "bucketName" :"tml-dropbox",
+    "urlShortnerKey":"AIzaSyAkKNf7-Z46PCBAc0rhVpzoyBD712Uo7qQ"
+
+}

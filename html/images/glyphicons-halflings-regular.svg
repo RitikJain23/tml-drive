@@ -1,0 +1,1 @@
+module.exports = "\"data:image/svg+xml,module.exports = __webpack_public_path__ + 'fonts/glyphicons-halflings-regular.svg';\""
