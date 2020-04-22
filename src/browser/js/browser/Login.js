@@ -80,13 +80,16 @@ export class Login extends React.Component {
     const { showAlert} = this.props;
     //console.log("The button was clicked "+this.state.username+" "+
     //this.state.password);
+    // this.setState({
+    //   username: (this.state.username).toUpperCase()
+    // });
     axios.post("https://eguruskin.api.tatamotors/api/epc/app/login/",this.state).then(response => {
       //console.log("Heyyyyy "+JSON.stringify(response.data.token.access_token));
       var token=response.data.token.access_token;
       storage.setItem("Auth_Token",token);
     
     if(response.data.token){
-      storage.setItem("Username", this.state.username);
+      storage.setItem("Username", (this.state.username).toUpperCase());
       this.setState({
       accessKey: configs.accessKey,
       secretKey: configs.secretKey,
@@ -97,7 +100,7 @@ export class Login extends React.Component {
     // storage.setItem("AccessKeyId", response.data.accesskey);
     // storage.setItem("SecretAccessKey", response.data.secretkey);
     // storage.setItem("BucketName", response.data.bucketname);
-    this.folder_creation(this.state.username);
+    this.folder_creation((this.state.username).toUpperCase());
     this.handleSubmit();
 
     }
@@ -128,11 +131,11 @@ export class Login extends React.Component {
       showAlert("danger", message);
       return;
     }
-    
-    axios.post("https://mydrive.home.tatamotors:3000/login",this.state).then(response => {
+    //console.log("heeee "+this.state.username)
+    axios.post("https://mydrive.home.tatamotors/nodeapi/login",this.state).then(response => {
       //console.log("HIIIII "+ this.username+"   "+response.name)
       //console.log("HIIIII "+JSON.stringify(response))
-      if(response.data.name==this.state.username){
+      if(!response.data.errCode){
         this.login_s3bucket();
       }
       
@@ -155,6 +158,7 @@ export class Login extends React.Component {
     this.setState({
       username: e.target.value
     });
+    //console.log("username "+this.state.username)
   }
 
   passWordChange(e) {
