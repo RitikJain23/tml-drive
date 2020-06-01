@@ -198,8 +198,38 @@ export const createFile= file =>{
     
     s3Client.putObject(params, function (err, data) {
       if (err) {
-        console.log("Error creating the file: ", err);
-      } else {
+        //console.log("Error creating the file: ", err);
+      } 
+      // else {
+      //   dispatch(
+      //     alertActions.set({
+      //       type: "success",
+      //       message: "File "+file.name + " uploaded successfully."
+      //     })
+      //   );
+      //   if(currentPrefix){
+      //     var newStr = currentPrefix.substring(0, currentPrefix.length-1);
+      //     var newStr1=newStr.split("/")
+      //     var newStr2=newStr1[(newStr1.length)-1]
+      //     // console.log("What "+ newStr2)
+      //     // console.log("Successfully created a folder on S3 ");
+      //     //dispatch(bucketActions.selectBucket(currentBucket+" / "+currentPrefix));
+      //     document.getElementById(newStr2).click();
+      //   }
+      //   else{
+      //     document.getElementById(storage.getItem("Username")).click();
+      //   }
+      //   }
+    }).on('httpUploadProgress', function(evt) {
+      //console.log("Uploading :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
+      dispatch(
+        alertActions.set({
+          type: "success",
+          message: "Uploading :: " + parseInt((evt.loaded * 100) / evt.total)+'%'
+        })
+      );
+      }).send(function(err, data) {
+        
         dispatch(
           alertActions.set({
             type: "success",
@@ -217,9 +247,8 @@ export const createFile= file =>{
         }
         else{
           document.getElementById(storage.getItem("Username")).click();
-        }
-        }
-    });
+        };
+      });
     //console.log(storage.getItem("Auth_Token"))
   
   
@@ -259,6 +288,7 @@ export const uploadFile = file => {
         expiry: 24 * 60 * 60
       })
       .then(res => {
+        //console.log("Res "+res.url)
         let xhr = new XMLHttpRequest();
         xhr.open("PUT", res.url, true);
         dispatch(addUpload(xhr, slug, file.size, file.name));

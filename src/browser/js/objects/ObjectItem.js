@@ -60,7 +60,7 @@ export class ObjectItem extends React.Component {
       actionButtons,
       onClick
     } = this.props;
-
+    const res=name.replace(/@@/g, "_");
     let regexFileExt = new RegExp(/\b(mf4|MF4|txt|TXT|csv|json|JSON)\b/, "g");
     const regexLogFile = new RegExp("^\\d{8}-[a-zA-Z0-9]{64}\\.mf4$", "g");
     const regexLogFileCrc = new RegExp("-[a-zA-Z0-9]{64}\\.mf4", "g");
@@ -100,7 +100,7 @@ export class ObjectItem extends React.Component {
               }}
             >
               {name.match(regexLogFile) == null
-                ? name
+                ? name.includes('@@')?res:name
                 : name.replace(name.match(regexLogFileCrc), ".mf4")}
             </a>
           </div>

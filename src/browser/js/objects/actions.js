@@ -450,6 +450,8 @@ export const shareObject = (object, days, hours, minutes) => {
     const currentBucket = getCurrentBucket(getState());
     const currentPrefix = getCurrentPrefix(getState());
     const objectName = `${currentPrefix}${object}`;
+    const res=objectName.replace(/@@/g, "_");
+    //console.log("ObjectName :"+objectName)
     const expiry = days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60;
     return web
       .PresignedGet({
@@ -459,6 +461,7 @@ export const shareObject = (object, days, hours, minutes) => {
         expiry
       })
       .then(obj => {
+        //console.log("obj URL"+obj.url)
         dispatch(showShareObject(object, obj.url));
         dispatch(
           alertActions.set({
@@ -511,6 +514,7 @@ export const downloadObject = object => {
     const currentBucket = getCurrentBucket(getState());
     const currentPrefix = getCurrentPrefix(getState());
     const objectName = `${currentPrefix}${object}`;
+    console.log("Object name1 "+objectName)
     if (web.LoggedIn()) {
       const slug = `${objectName}`;
       return web
@@ -546,10 +550,12 @@ export const downloadObject = object => {
               const url = window.URL.createObjectURL(new Blob([response.data]));
               const link = document.createElement("a");
               link.href = url;
+              const res = objectName.replace(/@@/g, "_");
+              //console.log("Object name "+res)
               let fileFormatedName =
                 currentBucket == "Home"
-                  ? `${objectName}`
-                  : `${currentBucket}/${objectName}`;
+                  ? objectName.includes("@@")?`${res}`:`${objectName}`
+                  : objectName.includes("@@")?`${currentBucket}/${res}`:`${currentBucket}/${objectName}`;
               link.setAttribute("download", fileFormatedName);
               document.body.appendChild(link);
               link.click();
@@ -719,11 +725,14 @@ const downloadObjectAsZip = (dispatch, object, bucketName, prefix) => {
         })
           .then(response => {
             count++;
+            //console.log("WYDHJ"+result.objectName)
+            const res2=result.objectName.replace(/@@/g, "_");
+            //console.log("WYDHJ"+res2)
             if (response.data.size) {
               const fileName =
                 bucketName == "Home"
-                  ? result.objectName.replace(/\//g, "_")
-                  : `${bucketName}_${result.objectName.replace(/\//g, "_")}`;
+                  ? result.objectName.includes("@@")?res2.replace(/\//g, "_"):result.objectName.replace(/\//g, "_")
+                  : result.objectName.includes("@@")?`${bucketName}_${res2.replace(/\//g, "_")}`:`${bucketName}_${result.objectName.replace(/\//g, "_")}`;
               zip.file(fileName, response.data, { binary: true });
             }
             if (count == object.length) {

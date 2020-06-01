@@ -19,6 +19,13 @@ class AlertModals extends React.Component {
 
     Object.keys(objectQueue).forEach(key => {
       const queueObject = objectQueue[key];
+      //console.log("fhjksfhw"+objectQueue[key].name)
+      if(objectQueue[key].name && objectQueue[key].name.includes("@@")){
+        //console.log("YEsss")
+        queueObject.name=queueObject.name.replace(/@@/g, "_");  
+        //console.log(queueObject.name)
+        //queueObject=queueObject.replace(/@@/g, "_");  
+      }
       bytesTransfered += queueObject.loaded;
       queueSize += queueObject.size;
     });

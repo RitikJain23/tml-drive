@@ -61,7 +61,7 @@ export class BrowserDropdown extends React.Component {
     //   event.preventDefault()
     // }
     const { showAlert} = this.props;
-    var message ="fdfd"
+    var message ="Please login again"
     if (message) {
       //showAlert("danger", message);
       // web.Logout();
@@ -124,7 +124,10 @@ export class BrowserDropdown extends React.Component {
     }
 
   }
-
+  home(e){
+      e.preventDefault();
+      document.getElementById(storage.getItem("Username")).click();
+  }
   dashboard(e) {
     e.preventDefault();
     history.push("/status-dashboard/");
@@ -145,7 +148,7 @@ export class BrowserDropdown extends React.Component {
               </a>
             </li>
             <li>
-              <a href="" onClick={this.dashboard.bind(this)}>
+              <a href="" onClick={this.home.bind(this)}>
                 Home <i className="pie-icon"/>
               </a>
             </li>

@@ -376,9 +376,9 @@ class S3Explorer {
   presignedPutObject(bucketName, objectName, expiry, cb) {
     let objectNameWithPrefix;
     if ("Home" == bucketName) {
-      objectNameWithPrefix = objectName.replace(/_/g, "/");
+      objectNameWithPrefix = objectName.replace(/_/g, "@@");
     } else {
-      objectNameWithPrefix = `${bucketName}/${objectName.replace(/_/g, "/")}`;
+      objectNameWithPrefix = `${bucketName}/${objectName.replace(/_/g, "@@")}`;
     }
     this.s3Client.presignedPutObject(
       this.bucketName,

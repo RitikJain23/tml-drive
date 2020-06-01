@@ -62,7 +62,7 @@ export const MainActions = ({
       //     })
       //   );
       // }
-      createFile(files.item(i));
+      uploadFile(files.item(i));
     }
     e.target.value = null;
   };
@@ -71,6 +71,13 @@ export const MainActions = ({
     e.preventDefault();
     const enteredName = prompt('Enter the name of the folder')
     if(enteredName){
+      var specialchar=["*","<",">","/",":","?","|","'","\""]
+      for(var i=0;i<specialchar.length;i++){
+        if(enteredName.includes(specialchar[i])){
+          showAlert("danger", "Invalid Folder name");
+          return;
+        }
+      }
       createFolder(enteredName);
     }
     

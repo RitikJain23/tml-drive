@@ -19,7 +19,7 @@ import React from "react";
 export const Host = ({ endPoint, bucketName }) => (
   <div>
     <div className="fes-host sb-custom">
-      <span className="host-text sb-host-text">© Copyright 2020 Tata Motors. All Rights Reserved.</span>
+      <span className="host-text sb-host-text">© Copyright 2020 Tata Motors. All <br />Rights Reserved.</span>
       <br />
       <span className="host-text sb-host-text"></span>
     </div>

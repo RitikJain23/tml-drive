@@ -102,7 +102,6 @@ export class Login extends React.Component {
     // storage.setItem("BucketName", response.data.bucketname);
     this.folder_creation((this.state.username).toUpperCase());
     this.handleSubmit();
-
     }
     
   
@@ -119,13 +118,13 @@ export class Login extends React.Component {
     const { showAlert} = this.props;
     var message =""
     if(!this.state.username){
-      message="Empty username"
+      message="Kindly enter Username"
     }
     if(!this.state.password){
-      message="Empty password"
+      message="Kindly enter password"
     }
     if(!this.state.username && !this.state.password){
-      message="Empty credentials"
+      message="Kindly enter Username and password"
     }
     if (message) {
       showAlert("danger", message);
@@ -343,7 +342,7 @@ right
               type="text"
               spellCheck="false"
               required="required"
-              autoComplete="endPoint"
+              autoComplete="off"
             />
 
               <InputGroup
@@ -356,7 +355,7 @@ right
               type="password"
               spellCheck="false"
               required="required"
-              autoComplete="endPoint"
+              autoComplete="off"
             />
             
             {/* <button onClick={(e)=>{e.preventDefault(); this.login_auth() }}>SUBMIT

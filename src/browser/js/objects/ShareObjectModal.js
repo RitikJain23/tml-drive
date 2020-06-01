@@ -112,7 +112,7 @@ export class ShareObjectModal extends React.Component {
 
   render() {
     const { shareObjectDetails, shareObject, hideShareObject } = this.props;
-    if(!this.state.short_url)
+    //if(!this.state.short_url)
     this.urlShortner(shareObjectDetails.url);
     return (
       <Modal
